@@ -16,6 +16,9 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useQuery } from '@tanstack/react-query';
 import axios from './axios'
@@ -30,7 +33,7 @@ export default function SecTraining() {
 
   function handleChange() {
 
-
+    setDmarcString
   }
 
   useEffect(() => {
@@ -38,14 +41,14 @@ export default function SecTraining() {
     const req = await axios.get("/api/dmarcRecords")
       // const records = req.data._embedded.dmarcRecords
       setDmarcRecords(req.data._embedded.dmarcRecords)
-      console.log(req.data._embedded.dmarcRecords[0].rua)
+      console.log(req.data._embedded.dmarcRecords)
     }
     fetchData()
   }, [])
 
   return (
     <Container sx={{ py: { xs: 8, sm: 16 } }}>
-      <Card sx={{ alignItems: 'center' }} >
+      <Card >
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             DMARC Builder
@@ -105,13 +108,25 @@ export default function SecTraining() {
       </Card>
       <Card>
         <CardContent>
-
-          { dmarcRecords.map((record) => (
-            <>
-              { record.rua }
-            </>
-          ))}
-
+          <Typography gutterBottom variant="h5" component="div">
+            Saved Records
+          </Typography>
+          <List>
+            { dmarcRecords.map((record, index) => (
+              <ListItem key={ index }>
+                <ListItemText primary={
+                  `v=DMARC1; 
+                   p=${record.policy};
+                   ${ record.spolicy ? "spolicy:" + record.spolicy : "" }
+                   rua=mailto:${record.rua}
+                   ${ record.ruf ? "ruf:" + record.ruf : "" }
+                   ${ record.pct ? "pct:" + record.pct : "" }`
+                  } />
+                <EditIcon />
+                <DeleteIcon />
+              </ListItem>
+            ))}
+          </List>
         </CardContent>
       </Card>
     </Container>

@@ -5,6 +5,9 @@ import Header from './components/Header';
 import Home from './components/Home';
 import SecTraining from './components/SecTraining'
 import Dmarc from './components/Dmarc'
+import Account from './components/Account'
+import Asset from './components/Assets'
+import HelpTickets from './components/HelpTickets'
 
 function App() {
 
@@ -17,7 +20,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/security-training" element={<SecTraining />} />
           {/* <Route path="/questions" element={<Questions />} /> */}
-          <Route path="/dmarc" element={<Dmarc />} /> 
+          <Route path="/dmarc" element={<Dmarc />} />
+          <Route path="/asset" element={<Asset />} />
+          <Route path="/account" element={<Account />} /> 
+          <Route path="/help-tickets" element={<HelpTickets />} />
         </Routes>
       </Container>
     </BrowserRouter>
