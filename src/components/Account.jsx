@@ -7,10 +7,10 @@ export default function Account() {
 
     useEffect(() => {
         async function fetchData() {
-        const req = await axios.get("/api/accounts")
-
-          setAccount(req.data._embedded.accounts)
-          console.log(req.data._embedded.accounts)
+            const req = await axios.get("/api/accounts")
+            // const final acct = req.data._embedded.accounts[]
+            setAccount(req.data._embedded.accounts)
+            console.log(req.data._embedded.accounts)
         }
         fetchData()
      }, [])
