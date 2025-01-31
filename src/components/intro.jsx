@@ -5,7 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
+// import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
 import Radio from '@mui/material/Radio';
@@ -25,21 +25,6 @@ import Typography from '@mui/material/Typography';
 
 
 const OnRise = ({ handleClick }) =>  {
-   
-  // const listItems = [
-  //   "1,265% increase in malicious phishing messages since Q4 2022",
-  //   "On average, 31,000 phishing attacks were sent on a daily basis",
-  //   "967% increase in credential phishing",
-  //   "68% of all phishing emails are text-based Business Email Compromise (BEC)",
-  //   "39% of al mobile-based attacks were SMS phishing (Smishing)"
-  // ]
-
-  // const listItems = [
-  //   "Flooding inboxes (known as Email Bombing) with legitimate service registration emails creates confusion",
-  //   "Appearing as account compromise",
-  //   "Following up through alternate channels (Teams chat) posing as Microsoft support",
-  //   "Delivering the actual attack through QR codes, links, or files",
-  // ]
 
   return (
     <Card sx={{ alignItems: 'center' }} >
@@ -88,17 +73,6 @@ const OnRise = ({ handleClick }) =>  {
             attackers increasingly target messaging platforms beyond email, including business 
             collaboration tools, SMS (text messages), and social media.
           </Typography>
-
-          {/* <List>
-            { listItems.map((item, index) => (
-              <ListItem key={ index } disablePadding>
-                <ArrowRightRoundedIcon />
-                <ListItemText 
-                  primary={ item }
-                />
-              </ListItem>
-            ))}
-          </List> */}
           
           <Typography variant="body1" sx={{ color: 'text.secondary', mb: 1 }}>
             https://slashnext.com/wp-content/uploads/2024/12/SlashNext-2024-Phishing-Intelligence-Report.pdf
@@ -112,6 +86,31 @@ const OnRise = ({ handleClick }) =>  {
   );
 }
 
+
+// cyber security
+const CyberSecurity = ({ handleClick }) => {
+  return (
+    <Card sx={{ alignItems: 'center' }} >
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            Common types of phishing attacks
+          </Typography>
+
+          <Typography variant="body1" sx={{ color: 'text.primary' }}>
+          
+          </Typography>
+ 
+          <Typography variant="body1" sx={{ color: 'text.primary' }}>
+          
+          </Typography>
+          <Button variant="contained" size="small" color="primary" onClick={ handleClick }>
+            Next
+          </Button>
+        </CardContent>
+    </Card>
+
+  );
+}
 
 const PhishingTypes = ({ handleClick }) => {
 
@@ -145,10 +144,8 @@ const PhishingTypes = ({ handleClick }) => {
     },
     {
       title: "Mobile Phishing",
-      text: <>
-      Phishing attacks targeting mobile devices throughlinks to malicious mobile websites, 
-      SMS text messages (Smishing), or QR code phishing.
-      </>
+      text: `Phishing attacks targeting mobile devices throughlinks to malicious mobile websites, 
+      SMS text messages (Smishing), or QR code phishing.`
     },
   ]
 
@@ -278,7 +275,7 @@ const TheWant = ({ handleClick }) => {
 
 
 // export default [OnRise];
-export default [OnRise, PhishingTypes, Q1, Targets, TheWant];
+export default [OnRise, CyberSecurity, PhishingTypes, Q1, Targets, TheWant];
 
 
 

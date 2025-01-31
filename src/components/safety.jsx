@@ -5,7 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
+// import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
 import Radio from '@mui/material/Radio';
@@ -15,8 +15,8 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 
 
-import PhishingIcon from '@mui/icons-material/Phishing';
-import ArrowRightRoundedIcon from '@mui/icons-material/ArrowRightRounded';
+// import PhishingIcon from '@mui/icons-material/Phishing';
+// import ArrowRightRoundedIcon from '@mui/icons-material/ArrowRightRounded';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 // import CardActions from '@mui/material/CardActions';
@@ -193,38 +193,52 @@ const Q1 = ({ handleClick }) => {
 const Mobile = ({ handleClick }) => {
   return (
     <Card sx={{ alignItems: 'center', maxWidth: 345 }} >
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Mobile Devices
-          </Typography>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            
-
-          </Typography>
-
-
-          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            
-
-          </Typography>
-
-          <Button variant="contained" size="small" color="primary" onClick={ handleClick }>
-            Next
-          </Button>
-        </CardContent>
-        
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          Mobile Devices
+        </Typography>
+        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          Having a cracked, rooted, or jailbroken phone on the compnay network is prohibited. 
+          The individuals who develop the rooting software that allowed you the admin access to your phone, 
+          also now have admin access to your phone which they can use to install malware, spyware, scrape 
+          personal data, or adopt your device to a botnet. In addition, third party apps also could be laden 
+          with the same malicious software. 
+        </Typography>
+        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          Another tactic used is taking a piece of software, could be a rooting kit, third party app, or
+          even a legitimate app, and wrapping it in some malicious payload. The original author of the app
+          had good intentions, but someone can take thier work, add malicious software to it, and redistrubite
+          it on the web. 
+        </Typography>
+        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          
+        </Typography>
+        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          Keep your devices up-to-date. 
+          Use only well known vendors.
+          Never leave your device unattended.
+          Ensure your device is protected with a passcode.
+          Use a VPN when on other networks.
+        </Typography>
+        <Typography variant="body1" sx={{ color: 'text.secondary', mb: 1 }}>
+          https://www.pcmag.com/news/be-careful-these-android-apps-are-installing-malware-stealing-your-data
+          https://www.bleepingcomputer.com/news/security/new-zombinder-platform-binds-android-malware-with-legitimate-apps/
+        </Typography>
+        <Button variant="contained" size="small" color="primary" onClick={ handleClick }>
+          Next
+        </Button>
+      </CardContent>
     </Card>
-
   );
 }
 
 const Privacy = ({ handleClick }) => {
   const listItems = [
-    <>Personal Identifiable Information - Names, SSNs, Addresses, Phone Numbers, Driver's License Number, 
-      Gender, Race, Birthdates, Fingerprints, Factial Geometry, and Voice Signatures</>,
-    <>Protected Health Information - </>,
-    <>Intellectual Property - Patents, Copyrights, Trademarks, Trade secrets, Brands, Inventions, Designs, 
-      Artistic works, New plant varieties, and Geographical indications.</>,
+    `Personal Identifiable Information - Names, SSNs, Addresses, Phone Numbers, Driver's License Number, 
+      Gender, Race, Birthdates, Fingerprints, Factial Geometry, and Voice Signatures`,
+    `Protected Health Information -`,
+    `Intellectual Property - Patents, Copyrights, Trademarks, Trade secrets, Brands, Inventions, Designs, 
+      Artistic works, New plant varieties, and Geographical indications.`,
   ]
 
   return (
@@ -246,7 +260,68 @@ const Privacy = ({ handleClick }) => {
   );
 }
 
+const SocialMedia = ({ handleClick }) => {
+  const listItems = [
+    `Personal Identifiable Information - Names, SSNs, Addresses, Phone Numbers, Driver's License Number, 
+      Gender, Race, Birthdates, Fingerprints, Factial Geometry, and Voice Signatures`,
+    `Protected Health Information -`,
+    `Intellectual Property - Patents, Copyrights, Trademarks, Trade secrets, Brands, Inventions, Designs, 
+      Artistic works, New plant varieties, and Geographical indications.`,
+  ]
 
-export default [Report, Passwords, Mobile, Privacy];
+  return (
+    <Card sx={{ alignItems: 'center', maxWidth: 345 }} >
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            Data Protection and Privacy
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+
+          </Typography>
+
+          <Button variant="contained" size="small" color="primary" onClick={ handleClick }>
+            Next
+          </Button>
+        </CardContent>
+    </Card>
+
+  );
+}
+
+const Data = ({ handleClick }) => {
+  // const listItems = [
+  //   `Personal Identifiable Information - Names, SSNs, Addresses, Phone Numbers, Driver's License Number, 
+  //     Gender, Race, Birthdates, Fingerprints, Factial Geometry, and Voice Signatures`,
+  //   `Protected Health Information -`,
+  //   `Intellectual Property - Patents, Copyrights, Trademarks, Trade secrets, Brands, Inventions, Designs, 
+  //     Artistic works, New plant varieties, and Geographical indications.`,
+  // ]
+
+  return (
+    <Card sx={{ alignItems: 'center', maxWidth: 345 }} >
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            Data Protection and Privacy
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            As per company policy, employees are responsible for ensuring the security of the data they 
+            access. All data needs to be restricted 
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            
+          </Typography>
+          <Button variant="contained" size="small" color="primary" onClick={ handleClick }>
+            Next
+          </Button>
+        </CardContent>
+    </Card>
+
+  );
+}
+
+export default [Report, Passwords, Mobile, Privacy, Data];
 
 
