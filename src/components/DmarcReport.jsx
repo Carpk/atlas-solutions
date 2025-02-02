@@ -21,14 +21,13 @@ export default function DmarcReport() {
       async function fetchData() {
       const req = await axios.get("/api/dmarcReports")
         setDmarcReports(req.data._embedded.dmarcReports)
-      //  console.log(req.data._embedded.dmarcReports)
       }
       fetchData()
     }, [])
   
     return (
     
-      <Stack sx={{ display: 'flex', mt: 20 }}>
+      <Stack spacing={2} sx={{ display: 'flex', mt: 20 }}>
         { dmarcReports.map((report, index) => (
           <Item key={ index }>
             { report.organization } 
@@ -39,21 +38,4 @@ export default function DmarcReport() {
       </Stack>
     )
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

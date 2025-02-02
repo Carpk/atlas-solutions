@@ -27,7 +27,7 @@ import { List, ListItem, ListItemText } from '@mui/material';
 
 
 
-export default function SecTraining() {
+export default function DmarcBuilder() {
  const [dmarcString, setDmarcString] = useState("v=DMARC1;")
  const [dmarcRecords, setDmarcRecords] = useState([])
 
