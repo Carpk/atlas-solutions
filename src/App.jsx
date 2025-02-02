@@ -10,6 +10,7 @@ import Assets from './components/Assets'
 import HelpTickets from './components/HelpTickets'
 import DmarcReport from './components/DmarcReport'
 import Announcements from './components/Announcements'
+import Dashboard from './components/Dashboard'
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="/account" element={<Account />} /> 
           <Route path="/help-tickets" element={<HelpTickets />} />
           <Route path="/announcements" element={<Announcements />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </Container>
     </BrowserRouter>

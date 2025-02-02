@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
 
 // import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
+// import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
+// import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Button from '@mui/material/Button';
 // import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -30,38 +33,39 @@ export default function Announcements() {
   return (
     <Stack spacing={2} sx={{ display: 'flex', mt: 20 }}>
       <Card variant="outlined" sx={{ height: '100%', flexGrow: 1 }}>
-        <CardContent>
-          <Typography component="h2" variant="subtitle2" gutterBottom>
-            Announcements
-          </Typography>
-          + add Announcement
-        </CardContent>
+        <CardHeader
+          title="Announcements"
+          subheader="Send an announcement email to all your users."
+          action={
+            <Button variant="contained" onClick={() => {alert('clicked');}}>
+              + make Announcement
+            </Button>
+          }
+
+        >
+          <CardContent>
+
+          </CardContent>
+        </CardHeader>
       </Card>
+
       { announcements.map((announcement, index) => (
         <Card variant="outlined" key={index} sx={{ height: '100%', flexGrow: 1 }}>
           <CardContent>
-            <Typography component="h2" variant="subtitle2" gutterBottom>
-                {announcement.title}
+            <Typography variant="h4" gutterBottom>
+              { announcement.title }
             </Typography>
-            <Stack direction="column" sx={{ justifyContent: 'space-between', flexGrow: '1', gap: 1 }}>
-                <Stack sx={{ justifyContent: 'space-between' }}>
-                <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Typography variant="h4" component="p">
-                    {"value"}
-                    </Typography>
-                
-                </Stack>
-                <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-                    {"interval"}
-                </Typography>
-                </Stack>
-                <Box sx={{ width: '100%', height: 50 }}>
-
-                </Box>
-            </Stack>
+            
+            <Typography variant="p" component="p">
+              { announcement.description }
+            </Typography>
+            <Typography variant="caption" sx={{ color: 'text.secondary' }} gutterBottom>
+                { announcement.date }
+            </Typography>
           </CardContent>
         </Card>
       ))}
+      
     </Stack>
   )
 }
