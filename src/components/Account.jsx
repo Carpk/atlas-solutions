@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+
 import axios from './axios'
 
 export default function Account() {
@@ -16,8 +19,13 @@ export default function Account() {
      }, [])
   
     return (
-        <>
-            { account[0].name }
-        </>
+        <Container sx={{ display: 'flex', mt: 20 }}>
+          <Typography variant="h4" gutterBottom>
+            Account
+          </Typography>
+             
+
+
+        </Container>
     )
 }

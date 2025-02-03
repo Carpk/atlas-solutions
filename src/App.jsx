@@ -22,7 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/security-training" element={<SecTraining />} />
-          <Route path="/dmarc" element={<DmarcBuilder />} />
+          <Route path="/dmarc-builder" element={<DmarcBuilder />} />
           <Route path="/dmarc-reports" element={<DmarcReport />} />
           <Route path="/assets" element={<Assets />} />
           <Route path="/account" element={<Account />} /> 
