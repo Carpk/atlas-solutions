@@ -15,6 +15,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
+import Grid from '@mui/material/Grid2';
 
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -23,7 +24,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 // import { useQuery } from '@tanstack/react-query';
 import axios from './axios'
 
-import { List, ListItem, ListItemText } from '@mui/material';
+import { List, ListItem, ListItemText, Stack } from '@mui/material';
 
 
 
@@ -57,55 +58,107 @@ export default function DmarcBuilder() {
           
           </Typography>
           <CardActions>
+            {/* <Stack direction="row">
+              <FormLabel id="demo-radio-buttons-group-label">Policy</FormLabel>
+              <RadioGroup
+                aria-labelledby="demo-radio-buttons-group-label"
+                defaultValue="reject"
+                name="domain-policy"
+              >
+                <FormControlLabel value="none" control={<Radio />} label="None" />
+                <FormControlLabel value="quarantine" control={<Radio />} label="Quarantine" />
+                <FormControlLabel value="reject" control={<Radio />} label="Reject" />
+              </RadioGroup>
 
-            <FormLabel id="demo-radio-buttons-group-label">Policy</FormLabel>
-            <RadioGroup
-              aria-labelledby="demo-radio-buttons-group-label"
-              defaultValue="reject"
-              name="domain-policy"
-            >
-              <FormControlLabel value="none" control={<Radio />} label="None" />
-              <FormControlLabel value="quarantine" control={<Radio />} label="Quarantine" />
-              <FormControlLabel value="reject" control={<Radio />} label="Reject" />
-            </RadioGroup>
-
-            <FormLabel id="demo-radio-buttons-group-label">Subdomain Policy</FormLabel>
-            <RadioGroup
-              aria-labelledby="demo-radio-buttons-group-label"
-              defaultValue="reject"
-              name="subdomain-policy"
-            >
-              <FormControlLabel value="none" control={<Radio />} label="None" />
-              <FormControlLabel value="quarantine" control={<Radio />} label="Quarantine" />
-              <FormControlLabel value="reject" control={<Radio />} label="Reject" />
-            </RadioGroup>
+              <FormLabel id="demo-radio-buttons-group-label">Subdomain Policy</FormLabel>
+              <RadioGroup
+                aria-labelledby="demo-radio-buttons-group-label"
+                defaultValue="reject"
+                name="subdomain-policy"
+              >
+                <FormControlLabel value="none" control={<Radio />} label="None" />
+                <FormControlLabel value="quarantine" control={<Radio />} label="Quarantine" />
+                <FormControlLabel value="reject" control={<Radio />} label="Reject" />
+              </RadioGroup>
 
 
-            <FormLabel id="demo-radio-buttons-group-label">Forensic Options</FormLabel>
-            <RadioGroup
-              aria-labelledby="demo-radio-buttons-group-label"
-              defaultValue="reject"
-              name="forensic-options"
-            >
-              <FormControlLabel value="0" control={<Radio />} label="0 - all fail" />
-              <FormControlLabel value="1" control={<Radio />} label="1 - any fail" />
-              <FormControlLabel value="d" control={<Radio />} label="d - DKIM fails" />
-              <FormControlLabel value="s" control={<Radio />} label="s - SPF fails" />
-            </RadioGroup>
+              <FormLabel id="demo-radio-buttons-group-label">Forensic Options</FormLabel>
+              <RadioGroup
+                aria-labelledby="demo-radio-buttons-group-label"
+                defaultValue="reject"
+                name="forensic-options"
+              >
+                <FormControlLabel value="0" control={<Radio />} label="0 - all fail" />
+                <FormControlLabel value="1" control={<Radio />} label="1 - any fail" />
+                <FormControlLabel value="d" control={<Radio />} label="d - DKIM fails" />
+                <FormControlLabel value="s" control={<Radio />} label="s - SPF fails" />
+              </RadioGroup>
 
 
             <FormLabel id="demo-radio-buttons-group-label">RUA</FormLabel>
             <TextField onChange={handleChange} id="outlined-basic" label="Outlined" variant="outlined" />
+            </Stack>
+
+            <Stack direction="row">
+              <Box sx={{ width: 500, maxWidth: '100%' }}>
+                <FormLabel id="demo-radio-buttons-group-label">DMARC Record</FormLabel>
+                <TextField fullWidth label={ dmarcString } id="DMARC" />
+              </Box>
+            </Stack> */}
 
 
-            <Box sx={{ width: 500, maxWidth: '100%' }}>
-              <FormLabel id="demo-radio-buttons-group-label">DMARC Record</FormLabel>
-              <TextField fullWidth label={ dmarcString } id="DMARC" />
-            </Box>
 
+            <Grid container spacing={2}>
+              <Grid size={4}>
+                <FormLabel id="demo-radio-buttons-group-label">Policy</FormLabel>
+                <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  defaultValue="reject"
+                  name="domain-policy"
+                >
+                  <FormControlLabel value="none" control={<Radio />} label="None" />
+                  <FormControlLabel value="quarantine" control={<Radio />} label="Quarantine" />
+                  <FormControlLabel value="reject" control={<Radio />} label="Reject" />
+                </RadioGroup>
+              </Grid>
+              <Grid size={4}>
+                <FormLabel id="demo-radio-buttons-group-label">Subdomain Policy</FormLabel>
+                <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  defaultValue="reject"
+                  name="subdomain-policy"
+                >
+                  <FormControlLabel value="none" control={<Radio />} label="None" />
+                  <FormControlLabel value="quarantine" control={<Radio />} label="Quarantine" />
+                  <FormControlLabel value="reject" control={<Radio />} label="Reject" />
+                </RadioGroup>
+              </Grid>
+              <Grid size={4}>
+                <FormLabel id="demo-radio-buttons-group-label">Forensic Options</FormLabel>
+                <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  defaultValue="reject"
+                  name="forensic-options"
+                >
+                  <FormControlLabel value="0" control={<Radio />} label="0 - all fail" />
+                  <FormControlLabel value="1" control={<Radio />} label="1 - any fail" />
+                  <FormControlLabel value="d" control={<Radio />} label="d - DKIM fails" />
+                  <FormControlLabel value="s" control={<Radio />} label="s - SPF fails" />
+                </RadioGroup>
+              </Grid>
+                {/* <FormLabel id="demo-radio-buttons-group-label">RUA</FormLabel>
+                <TextField onChange={handleChange} id="outlined-basic" label="Outlined" variant="outlined" /> */}
+              <Grid size={12}>
+                <Box sx={{ width: 500, maxWidth: '100%' }}>
+                  <FormLabel id="demo-radio-buttons-group-label">DMARC Record</FormLabel>
+                  <TextField fullWidth label={ dmarcString } id="DMARC" />
+                </Box>
+              </Grid>
+            </Grid>
           </CardActions>
         </CardContent>
       </Card>
+
       <Card>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">

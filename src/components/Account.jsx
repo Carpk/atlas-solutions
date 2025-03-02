@@ -10,10 +10,11 @@ export default function Account() {
 
     useEffect(() => {
         async function fetchData() {
-            const req = await axios.get("/api/accounts")
+            const req = await axios.get("/api/accounts/1")
+            // "/account/{id}/appusersCount"
             // const final acct = req.data._embedded.accounts[]
-            setAccount(req.data._embedded.accounts)
-            console.log(req.data._embedded.accounts)
+            setAccount(req.data)
+            console.log(req.data)
         }
         fetchData()
      }, [])
@@ -23,7 +24,10 @@ export default function Account() {
           <Typography variant="h4" gutterBottom>
             Account
           </Typography>
-             
+          <Typography variant="h3" gutterBottom>
+            { account.name }
+          </Typography>
+            
 
 
         </Container>
