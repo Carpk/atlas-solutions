@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 // import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
@@ -24,25 +24,34 @@ import DeleteIcon from '@mui/icons-material/Delete';
 // import { useQuery } from '@tanstack/react-query';
 import axios from './axios'
 
-import { List, ListItem, ListItemText, Stack } from '@mui/material';
+import { List, ListItem, ListItemText } from '@mui/material';
 
 
 
 export default function DmarcBuilder() {
- const [dmarcString, setDmarcString] = useState("v=DMARC1;")
- const [dmarcRecords, setDmarcRecords] = useState([])
+  const prefix = "v=DMARC1;"
+  const [dmarcString, setDmarcString] = useState(prefix)
+  const [dmarcRecords, setDmarcRecords] = useState([])
+  const dPolicy = useRef("");
+  const sPolicy = useRef("");
 
-  function handleChange() {
+  // const handleDPolicy = radio => event => setDPolicy(radio);
 
-    setDmarcString
+  function handleChange(event) {
+    // rebuild entire string
+
+    setDmarcString(prefix+dPolicy+sPolicy)
+    // event.target.value
+
+    console.log(dPolicy.current)
   }
 
   useEffect(() => {
     async function fetchData() {
-    const req = await axios.get("/api/dmarcRecords")
-      // const records = req.data._embedded.dmarcRecords
-      setDmarcRecords(req.data._embedded.dmarcRecords)
-      console.log(req.data._embedded.dmarcRecords)
+      // const req = await axios.get("/api/dmarcRecords")
+      // // const records = req.data._embedded.dmarcRecords
+      // setDmarcRecords(req.data._embedded.dmarcRecords)
+      // console.log(req.data._embedded.dmarcRecords)
     }
     fetchData()
   }, [])
@@ -58,68 +67,26 @@ export default function DmarcBuilder() {
           
           </Typography>
           <CardActions>
-            {/* <Stack direction="row">
-              <FormLabel id="demo-radio-buttons-group-label">Policy</FormLabel>
-              <RadioGroup
-                aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue="reject"
-                name="domain-policy"
-              >
-                <FormControlLabel value="none" control={<Radio />} label="None" />
-                <FormControlLabel value="quarantine" control={<Radio />} label="Quarantine" />
-                <FormControlLabel value="reject" control={<Radio />} label="Reject" />
-              </RadioGroup>
-
-              <FormLabel id="demo-radio-buttons-group-label">Subdomain Policy</FormLabel>
-              <RadioGroup
-                aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue="reject"
-                name="subdomain-policy"
-              >
-                <FormControlLabel value="none" control={<Radio />} label="None" />
-                <FormControlLabel value="quarantine" control={<Radio />} label="Quarantine" />
-                <FormControlLabel value="reject" control={<Radio />} label="Reject" />
-              </RadioGroup>
-
-
-              <FormLabel id="demo-radio-buttons-group-label">Forensic Options</FormLabel>
-              <RadioGroup
-                aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue="reject"
-                name="forensic-options"
-              >
-                <FormControlLabel value="0" control={<Radio />} label="0 - all fail" />
-                <FormControlLabel value="1" control={<Radio />} label="1 - any fail" />
-                <FormControlLabel value="d" control={<Radio />} label="d - DKIM fails" />
-                <FormControlLabel value="s" control={<Radio />} label="s - SPF fails" />
-              </RadioGroup>
-
-
-            <FormLabel id="demo-radio-buttons-group-label">RUA</FormLabel>
-            <TextField onChange={handleChange} id="outlined-basic" label="Outlined" variant="outlined" />
-            </Stack>
-
-            <Stack direction="row">
-              <Box sx={{ width: 500, maxWidth: '100%' }}>
-                <FormLabel id="demo-radio-buttons-group-label">DMARC Record</FormLabel>
-                <TextField fullWidth label={ dmarcString } id="DMARC" />
-              </Box>
-            </Stack> */}
-
-
-
             <Grid container spacing={2}>
               <Grid size={4}>
+
+
                 <FormLabel id="demo-radio-buttons-group-label">Policy</FormLabel>
                 <RadioGroup
                   aria-labelledby="demo-radio-buttons-group-label"
                   defaultValue="reject"
                   name="domain-policy"
+                  // value={dPolicy}
+                  // checked={policy === self.value}
+                  onChange={handleChange}
+                  ref={ dPolicy }
                 >
-                  <FormControlLabel value="none" control={<Radio />} label="None" />
-                  <FormControlLabel value="quarantine" control={<Radio />} label="Quarantine" />
-                  <FormControlLabel value="reject" control={<Radio />} label="Reject" />
+                  <FormControlLabel value="p=none" control={<Radio />} label="None" />
+                  <FormControlLabel value="p=quarantine" control={<Radio />} label="Quarantine" />
+                  <FormControlLabel value="p=reject" control={<Radio />} label="Reject" />
                 </RadioGroup>
+
+
               </Grid>
               <Grid size={4}>
                 <FormLabel id="demo-radio-buttons-group-label">Subdomain Policy</FormLabel>
@@ -127,10 +94,12 @@ export default function DmarcBuilder() {
                   aria-labelledby="demo-radio-buttons-group-label"
                   defaultValue="reject"
                   name="subdomain-policy"
+                  onChange={handleChange}
                 >
-                  <FormControlLabel value="none" control={<Radio />} label="None" />
-                  <FormControlLabel value="quarantine" control={<Radio />} label="Quarantine" />
-                  <FormControlLabel value="reject" control={<Radio />} label="Reject" />
+                  <FormControlLabel value="" control={<Radio />} label="Omit" />
+                  <FormControlLabel value="sp=none" control={<Radio />} label="None" />
+                  <FormControlLabel value="sp=quarantine" control={<Radio />} label="Quarantine" />
+                  <FormControlLabel value="sp=reject" control={<Radio />} label="Reject" />
                 </RadioGroup>
               </Grid>
               <Grid size={4}>
@@ -139,6 +108,7 @@ export default function DmarcBuilder() {
                   aria-labelledby="demo-radio-buttons-group-label"
                   defaultValue="reject"
                   name="forensic-options"
+                  onChange={handleChange}
                 >
                   <FormControlLabel value="0" control={<Radio />} label="0 - all fail" />
                   <FormControlLabel value="1" control={<Radio />} label="1 - any fail" />
@@ -151,7 +121,16 @@ export default function DmarcBuilder() {
               <Grid size={12}>
                 <Box sx={{ width: 500, maxWidth: '100%' }}>
                   <FormLabel id="demo-radio-buttons-group-label">DMARC Record</FormLabel>
-                  <TextField fullWidth label={ dmarcString } id="DMARC" />
+                  <TextField 
+                    id="DMARC"
+                    fullWidth 
+                    defaultValue={ dmarcString } 
+                    slotProps={{
+                      input: {
+                        readOnly: true,
+                      },
+                    }}
+                  />
                 </Box>
               </Grid>
             </Grid>
