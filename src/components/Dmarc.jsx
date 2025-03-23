@@ -22,7 +22,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 // import { useQuery } from '@tanstack/react-query';
-import axios from './axios'
+// import axios from './axios'
 
 import { List, ListItem, ListItemText } from '@mui/material';
 
@@ -32,18 +32,55 @@ export default function DmarcBuilder() {
   const prefix = "v=DMARC1;"
   const [dmarcString, setDmarcString] = useState(prefix)
   const [dmarcRecords, setDmarcRecords] = useState([])
+  const testRef = useRef("");
   const dPolicy = useRef("");
   const sPolicy = useRef("");
+  const fOption = useRef("");
+  const aDkim = useRef("");
+  const aSpf = useRef("");
+  // let dPolicy = ""
+  // let sPolicy = ""
 
   // const handleDPolicy = radio => event => setDPolicy(radio);
 
   function handleChange(event) {
     // rebuild entire string
 
-    setDmarcString(prefix+dPolicy+sPolicy)
+    // setDmarcString(prefix+dPolicy+sPolicy)
     // event.target.value
 
-    console.log(dPolicy.current)
+    // console.log(dPolicy.current)
+  }
+
+  function handleDPolicy(event) {
+    dPolicy.current = event.target.value
+    console.log(testRef.current)
+
+    setDmarcString(prefix + dPolicy.current + sPolicy.current + fOption.current + aDkim.current + aSpf.current)
+  }
+
+  function handleSPolicy(event) {
+    sPolicy.current = event.target.value
+
+    setDmarcString(prefix + dPolicy.current + sPolicy.current + fOption.current + aDkim.current + aSpf.current)
+  }
+
+  function handleFOptions(event) {
+    fOption.current = event.target.value
+
+    setDmarcString(prefix + dPolicy.current + sPolicy.current + fOption.current + aDkim.current + aSpf.current)
+  }
+
+  function handleADKIM(event) {
+    aDkim.current = event.target.value
+
+    setDmarcString(prefix + dPolicy.current + sPolicy.current + fOption.current + aDkim.current + aSpf.current)
+  }
+
+  function handleASPF(event) {
+    aSpf.current = event.target.value
+
+    setDmarcString(prefix + dPolicy.current + sPolicy.current + fOption.current + aDkim.current + aSpf.current)
   }
 
   useEffect(() => {
@@ -67,64 +104,95 @@ export default function DmarcBuilder() {
           
           </Typography>
           <CardActions>
-            <Grid container spacing={2}>
-              <Grid size={4}>
-
-
+            <Grid container spacing={1}>
+              <Grid size={2}>
                 <FormLabel id="demo-radio-buttons-group-label">Policy</FormLabel>
                 <RadioGroup
                   aria-labelledby="demo-radio-buttons-group-label"
                   defaultValue="reject"
                   name="domain-policy"
-                  // value={dPolicy}
-                  // checked={policy === self.value}
-                  onChange={handleChange}
-                  ref={ dPolicy }
+                  onChange={ handleDPolicy }
+                  ref={ testRef }
                 >
-                  <FormControlLabel value="p=none" control={<Radio />} label="None" />
-                  <FormControlLabel value="p=quarantine" control={<Radio />} label="Quarantine" />
-                  <FormControlLabel value="p=reject" control={<Radio />} label="Reject" />
+                  <FormControlLabel value=" p=none;" control={<Radio />} label="None" />
+                  <FormControlLabel value=" p=quarantine;" control={<Radio />} label="Quarantine" />
+                  <FormControlLabel value=" p=reject;" control={<Radio />} label="Reject" />
                 </RadioGroup>
-
-
               </Grid>
-              <Grid size={4}>
+              <Grid size={2}>
                 <FormLabel id="demo-radio-buttons-group-label">Subdomain Policy</FormLabel>
                 <RadioGroup
                   aria-labelledby="demo-radio-buttons-group-label"
                   defaultValue="reject"
                   name="subdomain-policy"
-                  onChange={handleChange}
+                  onChange={handleSPolicy}
                 >
                   <FormControlLabel value="" control={<Radio />} label="Omit" />
-                  <FormControlLabel value="sp=none" control={<Radio />} label="None" />
-                  <FormControlLabel value="sp=quarantine" control={<Radio />} label="Quarantine" />
-                  <FormControlLabel value="sp=reject" control={<Radio />} label="Reject" />
+                  <FormControlLabel value=" sp=none;" control={<Radio />} label="None" />
+                  <FormControlLabel value=" sp=quarantine;" control={<Radio />} label="Quarantine" />
+                  <FormControlLabel value=" sp=reject;" control={<Radio />} label="Reject" />
                 </RadioGroup>
               </Grid>
-              <Grid size={4}>
+              <Grid size={2}>
                 <FormLabel id="demo-radio-buttons-group-label">Forensic Options</FormLabel>
                 <RadioGroup
                   aria-labelledby="demo-radio-buttons-group-label"
                   defaultValue="reject"
                   name="forensic-options"
-                  onChange={handleChange}
+                  onChange={handleFOptions}
                 >
-                  <FormControlLabel value="0" control={<Radio />} label="0 - all fail" />
-                  <FormControlLabel value="1" control={<Radio />} label="1 - any fail" />
-                  <FormControlLabel value="d" control={<Radio />} label="d - DKIM fails" />
-                  <FormControlLabel value="s" control={<Radio />} label="s - SPF fails" />
+                  <FormControlLabel value=" fo=0;" control={<Radio />} label="0 - all fail" />
+                  <FormControlLabel value=" fo=1;" control={<Radio />} label="1 - any fail" />
+                  <FormControlLabel value=" fo=d;" control={<Radio />} label="d - DKIM fails" />
+                  <FormControlLabel value=" fo=s;" control={<Radio />} label="s - SPF fails" />
                 </RadioGroup>
               </Grid>
+
+
+              <Grid size={2}>
+                <FormLabel id="demo-radio-buttons-group-label">DKIM Alignment</FormLabel>
+                <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  defaultValue="reject"
+                  name="subdomain-policy"
+                  onChange={handleADKIM}
+                >
+                  <FormControlLabel value="" control={<Radio />} label="Omit" />
+                  <FormControlLabel value=" adkim=s;" control={<Radio />} label="Strict" />
+                  <FormControlLabel value=" adkim=r;" control={<Radio />} label="Relaxed" />
+                </RadioGroup>
+              </Grid>
+
+              <Grid size={2}>
+                <FormLabel id="demo-radio-buttons-group-label">SPF Alignment</FormLabel>
+                <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  defaultValue="reject"
+                  name="subdomain-policy"
+                  onChange={handleASPF}
+                >
+                  <FormControlLabel value="" control={<Radio />} label="None" />
+                  <FormControlLabel value=" aspf=s;" control={<Radio />} label="Strict" />
+                  <FormControlLabel value=" aspf=r;" control={<Radio />} label="Relaxed" />
+                </RadioGroup>
+              </Grid>
+
                 {/* <FormLabel id="demo-radio-buttons-group-label">RUA</FormLabel>
                 <TextField onChange={handleChange} id="outlined-basic" label="Outlined" variant="outlined" /> */}
+
+
+
+
+
+
+
               <Grid size={12}>
-                <Box sx={{ width: 500, maxWidth: '100%' }}>
+                <Box sx={{ width: 800, maxWidth: '100%' }}>
                   <FormLabel id="demo-radio-buttons-group-label">DMARC Record</FormLabel>
                   <TextField 
                     id="DMARC"
                     fullWidth 
-                    defaultValue={ dmarcString } 
+                    value= { dmarcString }
                     slotProps={{
                       input: {
                         readOnly: true,
