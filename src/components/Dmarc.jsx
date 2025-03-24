@@ -10,6 +10,7 @@ import Box from '@mui/material/Box';
 
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
+import Checkbox from '@mui/material/Checkbox';
 import FormLabel from '@mui/material/FormLabel';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Card from '@mui/material/Card';
@@ -33,39 +34,31 @@ export default function DmarcBuilder() {
   const [dmarcString, setDmarcString] = useState(prefix)
   const [dmarcRecords, setDmarcRecords] = useState([])
   const testRef = useRef("");
-  const dPolicy = useRef("");
-  const sPolicy = useRef("");
-  const fOption = useRef("");
-  const aDkim = useRef("");
-  const aSpf = useRef("");
 
   // const handleDPolicy = radio => event => setDPolicy(radio);
 
-  function handleChange(event) {
+  function getValue(name) {
+    const val = document.querySelector('input[name='+name+']:checked')
+    return val == null ? "" : val.value
+  }
+
+  function handleChange() {
     // get user selections
-    const domPo = dPolicy.current.querySelector('input[name=domain-policy]:checked').value
-    const subPo = sPolicy.current.querySelector('input[name=subdomain-policy]:checked').value || ""
-    const forOp = ""
-    const algDk = ""
-    const algSp = ""
+    const domPo = getValue('domain-policy')
+    const subPo = getValue('subdomain-policy')
+    const forOp = getValue('forensic-options')
+    const algDk = getValue('dkim-alignment')
+    const algSp = getValue('spf-alignment')
 
     // setDmarcString(prefix+dPolicy+sPolicy)
     // event.target.value
+    // console.log(subPo)
 
-    // rebuild entire string
+    // rebuild DMARC string
     setDmarcString(prefix + domPo + subPo + forOp + algDk + algSp)
   }
 
-  function handleDPolicy(event) {
-    dPolicy.current = event.target.value
 
-    // document.querySelector('input[name=domain-policy]:checked').value
-    // console.log(testRef.current.querySelector('mui-checked'))
-    console.log(testRef.current.querySelector('input[name=domain-policy]:checked').value)
-    // console.log(testRef.current)
-
-    setDmarcString(prefix + dPolicy.current + sPolicy.current + fOption.current + aDkim.current + aSpf.current)
-  }
 
 
 
@@ -95,10 +88,9 @@ export default function DmarcBuilder() {
                 <FormLabel id="demo-radio-buttons-group-label">Policy</FormLabel>
                 <RadioGroup
                   aria-labelledby="demo-radio-buttons-group-label"
-                  defaultValue="reject"
+                  defaultValue=" p=none;"
                   name="domain-policy"
                   onChange={ handleChange }
-                  ref={ dPolicy }
                 >
                   <FormControlLabel value=" p=none;" control={<Radio />} label="None" />
                   <FormControlLabel value=" p=quarantine;" control={<Radio />} label="Quarantine" />
@@ -109,10 +101,9 @@ export default function DmarcBuilder() {
                 <FormLabel id="demo-radio-buttons-group-label">Subdomain Policy</FormLabel>
                 <RadioGroup
                   aria-labelledby="demo-radio-buttons-group-label"
-                  defaultValue="reject"
+                  defaultValue=""
                   name="subdomain-policy"
                   onChange={ handleChange }
-                  ref={ sPolicy }
                 >
                   <FormControlLabel value="" control={<Radio />} label="Omit" />
                   <FormControlLabel value=" sp=none;" control={<Radio />} label="None" />
@@ -121,17 +112,31 @@ export default function DmarcBuilder() {
                 </RadioGroup>
               </Grid>
               <Grid size={2}>
+                <FormLabel id="demo-radio-buttons-group-label">Subdomain Policy</FormLabel>
+                <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  defaultValue=""
+                  name="pct-policy"
+                  onChange={ handleChange }
+                >
+                  <FormControlLabel control={<Checkbox />} label="pct" />
+                  <TextField label="percentage" type="number" variant="outlined" />
+                  
+                </RadioGroup>
+              </Grid>
+              <Grid size={2}>
                 <FormLabel id="demo-radio-buttons-group-label">Forensic Options</FormLabel>
                 <RadioGroup
                   aria-labelledby="demo-radio-buttons-group-label"
-                  defaultValue="reject"
+                  defaultValue=""
                   name="forensic-options"
-                  onChange={handleChange}
+                  onChange={ handleChange }
                 >
-                  <FormControlLabel value=" fo=0;" control={<Radio />} label="0 - all fail" />
-                  <FormControlLabel value=" fo=1;" control={<Radio />} label="1 - any fail" />
-                  <FormControlLabel value=" fo=d;" control={<Radio />} label="d - DKIM fails" />
-                  <FormControlLabel value=" fo=s;" control={<Radio />} label="s - SPF fails" />
+                  <FormControlLabel value="" control={<Radio />} label="Omit" />
+                  <FormControlLabel value=" fo=0;" control={<Radio />} label="both fail" />
+                  <FormControlLabel value=" fo=1;" control={<Radio />} label="either fail" />
+                  <FormControlLabel value=" fo=d;" control={<Radio />} label="DKIM fails" />
+                  <FormControlLabel value=" fo=s;" control={<Radio />} label="SPF fails" />
                 </RadioGroup>
               </Grid>
 
@@ -140,8 +145,8 @@ export default function DmarcBuilder() {
                 <FormLabel id="demo-radio-buttons-group-label">DKIM Alignment</FormLabel>
                 <RadioGroup
                   aria-labelledby="demo-radio-buttons-group-label"
-                  defaultValue="reject"
-                  name="subdomain-policy"
+                  defaultValue=""
+                  name="dkim-alignment"
                   onChange={handleChange}
                 >
                   <FormControlLabel value="" control={<Radio />} label="Omit" />
@@ -154,8 +159,8 @@ export default function DmarcBuilder() {
                 <FormLabel id="demo-radio-buttons-group-label">SPF Alignment</FormLabel>
                 <RadioGroup
                   aria-labelledby="demo-radio-buttons-group-label"
-                  defaultValue="reject"
-                  name="subdomain-policy"
+                  defaultValue=""
+                  name="spf-alignment"
                   onChange={handleChange}
                 >
                   <FormControlLabel value="" control={<Radio />} label="Omit" />
@@ -164,12 +169,10 @@ export default function DmarcBuilder() {
                 </RadioGroup>
               </Grid>
 
-                {/* <FormLabel id="demo-radio-buttons-group-label">RUA</FormLabel>
-                <TextField onChange={handleChange} id="outlined-basic" label="Outlined" variant="outlined" /> */}
 
 
-
-
+              <FormLabel id="demo-radio-buttons-group-label">RUA</FormLabel>
+                <TextField onChange={ handleChange } id="outlined-basic" label="Outlined" variant="outlined" />
 
 
 
@@ -220,6 +223,18 @@ export default function DmarcBuilder() {
   );
 }
 
+
+
+  // function handleDPolicy(event) {
+  //   dPolicy.current = event.target.value
+
+  //   // document.querySelector('input[name=domain-policy]:checked').value
+  //   // console.log(testRef.current.querySelector('mui-checked'))
+  //   console.log(testRef.current.querySelector('input[name=domain-policy]:checked').value)
+  //   // console.log(testRef.current)
+
+  //   setDmarcString(prefix + dPolicy.current + sPolicy.current + fOption.current + aDkim.current + aSpf.current)
+  // } 
 
   // function handleSPolicy(event) {
   //   sPolicy.current = event.target.value
