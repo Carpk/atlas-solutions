@@ -21,6 +21,9 @@ function Home() {
     navigate('/security-training');
   }
 
+  function handleDmarcBuilder() {
+    navigate('/dmarc-builder');
+  }
 
 
   return (
@@ -74,6 +77,43 @@ function Home() {
               <Button 
                 variant="contained"
                 onClick={handleSecTraining} 
+                size="small"  
+                color="primary"
+                sx={{ width: { xs: '100%', sm: 'fit-content' }, mr: 3 }}
+              >
+                Start
+              </Button>
+            </Box>
+          </CardActions>
+        </Card>
+        <Card sx={{ alignItems: 'center', maxWidth: 345 }} >
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              DMAR Builder Tool
+            </Typography>
+            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+              Free tool to build your DMARC record.
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Box
+              sx={[
+                {
+                  display: 'flex',
+                  flexDirection: { xs: 'column-reverse', sm: 'row' },
+                  alignItems: 'end',
+                  flexGrow: 1,
+                  gap: 1,
+                  pb: { xs: 12, sm: 0 },
+                  mt: { xs: 2, sm: 0 },
+                  mb: '60px',
+                  justifyContent: 'flex-end' 
+                },
+              ]}
+              >
+              <Button 
+                variant="contained"
+                onClick={ handleDmarcBuilder } 
                 size="small"  
                 color="primary"
                 sx={{ width: { xs: '100%', sm: 'fit-content' }, mr: 3 }}

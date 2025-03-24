@@ -38,50 +38,36 @@ export default function DmarcBuilder() {
   const fOption = useRef("");
   const aDkim = useRef("");
   const aSpf = useRef("");
-  // let dPolicy = ""
-  // let sPolicy = ""
 
   // const handleDPolicy = radio => event => setDPolicy(radio);
 
   function handleChange(event) {
-    // rebuild entire string
+    // get user selections
+    const domPo = dPolicy.current.querySelector('input[name=domain-policy]:checked').value
+    const subPo = sPolicy.current.querySelector('input[name=subdomain-policy]:checked').value || ""
+    const forOp = ""
+    const algDk = ""
+    const algSp = ""
 
     // setDmarcString(prefix+dPolicy+sPolicy)
     // event.target.value
 
-    // console.log(dPolicy.current)
+    // rebuild entire string
+    setDmarcString(prefix + domPo + subPo + forOp + algDk + algSp)
   }
 
   function handleDPolicy(event) {
     dPolicy.current = event.target.value
-    console.log(testRef.current)
+
+    // document.querySelector('input[name=domain-policy]:checked').value
+    // console.log(testRef.current.querySelector('mui-checked'))
+    console.log(testRef.current.querySelector('input[name=domain-policy]:checked').value)
+    // console.log(testRef.current)
 
     setDmarcString(prefix + dPolicy.current + sPolicy.current + fOption.current + aDkim.current + aSpf.current)
   }
 
-  function handleSPolicy(event) {
-    sPolicy.current = event.target.value
 
-    setDmarcString(prefix + dPolicy.current + sPolicy.current + fOption.current + aDkim.current + aSpf.current)
-  }
-
-  function handleFOptions(event) {
-    fOption.current = event.target.value
-
-    setDmarcString(prefix + dPolicy.current + sPolicy.current + fOption.current + aDkim.current + aSpf.current)
-  }
-
-  function handleADKIM(event) {
-    aDkim.current = event.target.value
-
-    setDmarcString(prefix + dPolicy.current + sPolicy.current + fOption.current + aDkim.current + aSpf.current)
-  }
-
-  function handleASPF(event) {
-    aSpf.current = event.target.value
-
-    setDmarcString(prefix + dPolicy.current + sPolicy.current + fOption.current + aDkim.current + aSpf.current)
-  }
 
   useEffect(() => {
     async function fetchData() {
@@ -104,15 +90,15 @@ export default function DmarcBuilder() {
           
           </Typography>
           <CardActions>
-            <Grid container spacing={1}>
+            <Grid container spacing={1} ref={ testRef }>
               <Grid size={2}>
                 <FormLabel id="demo-radio-buttons-group-label">Policy</FormLabel>
                 <RadioGroup
                   aria-labelledby="demo-radio-buttons-group-label"
                   defaultValue="reject"
                   name="domain-policy"
-                  onChange={ handleDPolicy }
-                  ref={ testRef }
+                  onChange={ handleChange }
+                  ref={ dPolicy }
                 >
                   <FormControlLabel value=" p=none;" control={<Radio />} label="None" />
                   <FormControlLabel value=" p=quarantine;" control={<Radio />} label="Quarantine" />
@@ -125,7 +111,8 @@ export default function DmarcBuilder() {
                   aria-labelledby="demo-radio-buttons-group-label"
                   defaultValue="reject"
                   name="subdomain-policy"
-                  onChange={handleSPolicy}
+                  onChange={ handleChange }
+                  ref={ sPolicy }
                 >
                   <FormControlLabel value="" control={<Radio />} label="Omit" />
                   <FormControlLabel value=" sp=none;" control={<Radio />} label="None" />
@@ -139,7 +126,7 @@ export default function DmarcBuilder() {
                   aria-labelledby="demo-radio-buttons-group-label"
                   defaultValue="reject"
                   name="forensic-options"
-                  onChange={handleFOptions}
+                  onChange={handleChange}
                 >
                   <FormControlLabel value=" fo=0;" control={<Radio />} label="0 - all fail" />
                   <FormControlLabel value=" fo=1;" control={<Radio />} label="1 - any fail" />
@@ -155,7 +142,7 @@ export default function DmarcBuilder() {
                   aria-labelledby="demo-radio-buttons-group-label"
                   defaultValue="reject"
                   name="subdomain-policy"
-                  onChange={handleADKIM}
+                  onChange={handleChange}
                 >
                   <FormControlLabel value="" control={<Radio />} label="Omit" />
                   <FormControlLabel value=" adkim=s;" control={<Radio />} label="Strict" />
@@ -169,9 +156,9 @@ export default function DmarcBuilder() {
                   aria-labelledby="demo-radio-buttons-group-label"
                   defaultValue="reject"
                   name="subdomain-policy"
-                  onChange={handleASPF}
+                  onChange={handleChange}
                 >
-                  <FormControlLabel value="" control={<Radio />} label="None" />
+                  <FormControlLabel value="" control={<Radio />} label="Omit" />
                   <FormControlLabel value=" aspf=s;" control={<Radio />} label="Strict" />
                   <FormControlLabel value=" aspf=r;" control={<Radio />} label="Relaxed" />
                 </RadioGroup>
@@ -234,3 +221,26 @@ export default function DmarcBuilder() {
 }
 
 
+  // function handleSPolicy(event) {
+  //   sPolicy.current = event.target.value
+
+  //   setDmarcString(prefix + dPolicy.current + sPolicy.current + fOption.current + aDkim.current + aSpf.current)
+  // }
+
+  // function handleFOptions(event) {
+  //   fOption.current = event.target.value
+
+  //   setDmarcString(prefix + dPolicy.current + sPolicy.current + fOption.current + aDkim.current + aSpf.current)
+  // }
+
+  // function handleADKIM(event) {
+  //   aDkim.current = event.target.value
+
+  //   setDmarcString(prefix + dPolicy.current + sPolicy.current + fOption.current + aDkim.current + aSpf.current)
+  // }
+
+  // function handleASPF(event) {
+  //   aSpf.current = event.target.value
+
+  //   setDmarcString(prefix + dPolicy.current + sPolicy.current + fOption.current + aDkim.current + aSpf.current)
+  // }
