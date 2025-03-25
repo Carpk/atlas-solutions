@@ -12,6 +12,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import Checkbox from '@mui/material/Checkbox';
 import FormLabel from '@mui/material/FormLabel';
+import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -42,6 +43,18 @@ export default function DmarcBuilder() {
     return val == null ? "" : val.value
   }
 
+  function getPct(name) {
+    const chk = document.querySelector('input[name='+name+']:checked')
+    const val = document.querySelector('input[name=policy-pct]')
+
+    return chk != null && val.value != null ? " pct=" + val.value + ";" : ""
+  }
+
+  function getEmailData() {
+    const val = document.querySelector('input[name=rua-input]')
+    console.log(val.value)
+  }
+
   function handleChange() {
     // get user selections
     const domPo = getValue('domain-policy')
@@ -50,12 +63,17 @@ export default function DmarcBuilder() {
     const algDk = getValue('dkim-alignment')
     const algSp = getValue('spf-alignment')
 
+    const polPct = getPct('pct-active')
+
+    getEmailData()
+
+
     // setDmarcString(prefix+dPolicy+sPolicy)
     // event.target.value
     // console.log(subPo)
 
     // rebuild DMARC string
-    setDmarcString(prefix + domPo + subPo + forOp + algDk + algSp)
+    setDmarcString(prefix + domPo + subPo + polPct + forOp + algDk + algSp)
   }
 
 
@@ -112,17 +130,28 @@ export default function DmarcBuilder() {
                 </RadioGroup>
               </Grid>
               <Grid size={2}>
-                <FormLabel id="demo-radio-buttons-group-label">Subdomain Policy</FormLabel>
-                <RadioGroup
-                  aria-labelledby="demo-radio-buttons-group-label"
-                  defaultValue=""
-                  name="pct-policy"
-                  onChange={ handleChange }
-                >
-                  <FormControlLabel control={<Checkbox />} label="pct" />
-                  <TextField label="percentage" type="number" variant="outlined" />
-                  
-                </RadioGroup>
+
+
+
+                <FormLabel id="demo-radio-buttons-group-label">Policy Percentage</FormLabel>
+                <FormGroup>
+                  <FormControlLabel  
+                    control={<Checkbox />} 
+                    label="pct" 
+                    name="pct-active"
+                    onChange={ handleChange }
+                  />
+                  <TextField 
+                    name="policy-pct" 
+                    label="percentage" 
+                    type="number" 
+                    variant="outlined"
+                    onChange={ handleChange } 
+                  />  
+                </FormGroup>
+
+
+
               </Grid>
               <Grid size={2}>
                 <FormLabel id="demo-radio-buttons-group-label">Forensic Options</FormLabel>
@@ -147,7 +176,7 @@ export default function DmarcBuilder() {
                   aria-labelledby="demo-radio-buttons-group-label"
                   defaultValue=""
                   name="dkim-alignment"
-                  onChange={handleChange}
+                  onChange={ handleChange }
                 >
                   <FormControlLabel value="" control={<Radio />} label="Omit" />
                   <FormControlLabel value=" adkim=s;" control={<Radio />} label="Strict" />
@@ -161,7 +190,7 @@ export default function DmarcBuilder() {
                   aria-labelledby="demo-radio-buttons-group-label"
                   defaultValue=""
                   name="spf-alignment"
-                  onChange={handleChange}
+                  onChange={ handleChange }
                 >
                   <FormControlLabel value="" control={<Radio />} label="Omit" />
                   <FormControlLabel value=" aspf=s;" control={<Radio />} label="Strict" />
@@ -170,15 +199,33 @@ export default function DmarcBuilder() {
               </Grid>
 
 
-
-              <FormLabel id="demo-radio-buttons-group-label">RUA</FormLabel>
-                <TextField onChange={ handleChange } id="outlined-basic" label="Outlined" variant="outlined" />
-
+              <Grid size={6}>
+                <FormLabel id="rua-label">RUA</FormLabel>
+                <TextField
+                  id="rua-data" 
+                  name="rua-input"
+                  // label="sample@example.net" 
+                  placeholder="sample@example.net"
+                  variant="outlined" 
+                  onChange={ handleChange }
+                />
+              </Grid>
+              <Grid size={6}>
+                <FormLabel id="ruf-label">RUF</FormLabel>
+                <TextField  
+                  id="ruf-data" 
+                  name="ruf-input"  
+                  // label="sample@example.net" 
+                  placeholder="sample@example.net"
+                  variant="outlined" 
+                  onChange={ handleChange }
+                />
+              </Grid>
 
 
               <Grid size={12}>
                 <Box sx={{ width: 800, maxWidth: '100%' }}>
-                  <FormLabel id="demo-radio-buttons-group-label">DMARC Record</FormLabel>
+                  <FormLabel id="dmarc-label">DMARC Record</FormLabel>
                   <TextField 
                     id="DMARC"
                     fullWidth 
