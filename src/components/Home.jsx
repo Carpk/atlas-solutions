@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+// import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import SignInCard from './SignInCard';
 
@@ -32,7 +32,7 @@ function Home() {
       sx={{
         justifyContent: 'center',
         height: 'calc((1 - var(--template-frame-height, 0)) * 100%)',
-        marginTop: 'max(80px - var(--template-frame-height, 0px), 0px)',
+        marginTop: 'max(150px - var(--template-frame-height, 0px), 0px)',
         minHeight: '100%',
         gap: { xs: 6, sm: 12 },
         p: 2,
@@ -40,15 +40,15 @@ function Home() {
       }}
     >
       <Stack
-        direction={{ xs: 'column-reverse', md: 'row' }}
+        // direction={{ xs: 'column-reverse', md: 'row' }}
         sx={{
           justifyContent: 'center',
-          gap: { xs: 6, sm: 12 },
+          gap: { xs: 4, sm: 8 },
           p: { xs: 2, sm: 4 },
           m: 'auto',
         }}
       >
-        <Card sx={{ alignItems: 'center', maxWidth: 345 }} >
+        <Card sx={{ alignItems: 'center', maxWidth: 425 }} >
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               Security Awareness Training
@@ -69,7 +69,7 @@ function Home() {
                   gap: 1,
                   pb: { xs: 12, sm: 0 },
                   mt: { xs: 2, sm: 0 },
-                  mb: '60px',
+                  mb: '12px',
                   justifyContent: 'flex-end' 
                 },
               ]}
@@ -86,7 +86,7 @@ function Home() {
             </Box>
           </CardActions>
         </Card>
-        <Card sx={{ alignItems: 'center', maxWidth: 345 }} >
+        <Card sx={{ alignItems: 'center', maxWidth: 425 }} >
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               DMAR Builder Tool
@@ -106,7 +106,7 @@ function Home() {
                   gap: 1,
                   pb: { xs: 12, sm: 0 },
                   mt: { xs: 2, sm: 0 },
-                  mb: '60px',
+                  mb: '12px',
                   justifyContent: 'flex-end' 
                 },
               ]}
@@ -123,8 +123,9 @@ function Home() {
             </Box>
           </CardActions>
         </Card>
+        </Stack>
         <SignInCard />
-      </Stack>
+      
     </Stack>
   );
 }

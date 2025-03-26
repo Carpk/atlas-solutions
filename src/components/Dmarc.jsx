@@ -13,10 +13,13 @@ import RadioGroup from '@mui/material/RadioGroup';
 import Checkbox from '@mui/material/Checkbox';
 import FormLabel from '@mui/material/FormLabel';
 import FormGroup from '@mui/material/FormGroup';
+import Button from '@mui/material/Button';
+import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
+import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid2';
 
 import EditIcon from '@mui/icons-material/Edit';
@@ -32,7 +35,7 @@ import { List, ListItem, ListItemText } from '@mui/material';
 
 export default function DmarcBuilder() {
   const prefix = "v=DMARC1;"
-  const [dmarcString, setDmarcString] = useState(prefix)
+  const [dmarcString, setDmarcString] = useState(prefix + " p=none;")
   const [dmarcRecords, setDmarcRecords] = useState([])
   const testRef = useRef("");
 
@@ -47,12 +50,14 @@ export default function DmarcBuilder() {
     const chk = document.querySelector('input[name='+name+']:checked')
     const val = document.querySelector('input[name=policy-pct]')
 
-    return chk != null && val.value != null ? " pct=" + val.value + ";" : ""
+    return (chk != null && val.value != "") ? " pct=" + val.value + ";" : ""
   }
 
   function getEmailData() {
     const val = document.querySelector('input[name=rua-input]')
-    console.log(val.value)
+    //validate email
+    // console.log(val.value)
+    return val.value == "" ? "" : " rua=mailto:" + val.value + ";"
   }
 
   function handleChange() {
@@ -62,18 +67,12 @@ export default function DmarcBuilder() {
     const forOp = getValue('forensic-options')
     const algDk = getValue('dkim-alignment')
     const algSp = getValue('spf-alignment')
-
     const polPct = getPct('pct-active')
+    const ruaEma = getEmailData()
 
-    getEmailData()
-
-
-    // setDmarcString(prefix+dPolicy+sPolicy)
-    // event.target.value
-    // console.log(subPo)
 
     // rebuild DMARC string
-    setDmarcString(prefix + domPo + subPo + polPct + forOp + algDk + algSp)
+    setDmarcString(prefix + domPo + subPo + polPct + forOp + algDk + algSp + ruaEma)
   }
 
 
@@ -168,8 +167,6 @@ export default function DmarcBuilder() {
                   <FormControlLabel value=" fo=s;" control={<Radio />} label="SPF fails" />
                 </RadioGroup>
               </Grid>
-
-
               <Grid size={2}>
                 <FormLabel id="demo-radio-buttons-group-label">DKIM Alignment</FormLabel>
                 <RadioGroup
@@ -183,7 +180,6 @@ export default function DmarcBuilder() {
                   <FormControlLabel value=" adkim=r;" control={<Radio />} label="Relaxed" />
                 </RadioGroup>
               </Grid>
-
               <Grid size={2}>
                 <FormLabel id="demo-radio-buttons-group-label">SPF Alignment</FormLabel>
                 <RadioGroup
@@ -199,32 +195,38 @@ export default function DmarcBuilder() {
               </Grid>
 
 
+
               <Grid size={6}>
-                <FormLabel id="rua-label">RUA</FormLabel>
-                <TextField
-                  id="rua-data" 
-                  name="rua-input"
-                  // label="sample@example.net" 
-                  placeholder="sample@example.net"
-                  variant="outlined" 
-                  onChange={ handleChange }
-                />
+                <FormControl fullWidth sx={{ m: 0 }}>
+                  <FormLabel id="rua-label">RUA</FormLabel>
+                  <TextField
+                    id="rua-data" 
+                    name="rua-input"
+                    // label="sample@example.net" 
+                    placeholder="sample@example.net"
+                    variant="outlined" 
+                    onChange={ handleChange }
+                  />
+                </FormControl>
               </Grid>
               <Grid size={6}>
-                <FormLabel id="ruf-label">RUF</FormLabel>
-                <TextField  
-                  id="ruf-data" 
-                  name="ruf-input"  
-                  // label="sample@example.net" 
-                  placeholder="sample@example.net"
-                  variant="outlined" 
-                  onChange={ handleChange }
-                />
+                <FormControl fullWidth sx={{ m: 0 }}>
+                  <FormLabel id="ruf-label">RUF</FormLabel>
+                  <TextField  
+                    id="ruf-data" 
+                    name="ruf-input"  
+                    // label="sample@example.net" 
+                    placeholder="sample@example.net"
+                    variant="outlined" 
+                    onChange={ handleChange }
+                  />
+                </FormControl>
               </Grid>
+
 
 
               <Grid size={12}>
-                <Box sx={{ width: 800, maxWidth: '100%' }}>
+                <Box sx={{ width: 1200, maxWidth: '100%' }}>
                   <FormLabel id="dmarc-label">DMARC Record</FormLabel>
                   <TextField 
                     id="DMARC"
@@ -238,10 +240,15 @@ export default function DmarcBuilder() {
                   />
                 </Box>
               </Grid>
+
+              <Button variant="contained" sx={{ marginLeft: "auto" }} disabled>Save</Button>
+
             </Grid>
           </CardActions>
         </CardContent>
       </Card>
+
+      <Divider>Saved Records</Divider>
 
       <Card>
         <CardContent>
@@ -269,40 +276,3 @@ export default function DmarcBuilder() {
     </Container>
   );
 }
-
-
-
-  // function handleDPolicy(event) {
-  //   dPolicy.current = event.target.value
-
-  //   // document.querySelector('input[name=domain-policy]:checked').value
-  //   // console.log(testRef.current.querySelector('mui-checked'))
-  //   console.log(testRef.current.querySelector('input[name=domain-policy]:checked').value)
-  //   // console.log(testRef.current)
-
-  //   setDmarcString(prefix + dPolicy.current + sPolicy.current + fOption.current + aDkim.current + aSpf.current)
-  // } 
-
-  // function handleSPolicy(event) {
-  //   sPolicy.current = event.target.value
-
-  //   setDmarcString(prefix + dPolicy.current + sPolicy.current + fOption.current + aDkim.current + aSpf.current)
-  // }
-
-  // function handleFOptions(event) {
-  //   fOption.current = event.target.value
-
-  //   setDmarcString(prefix + dPolicy.current + sPolicy.current + fOption.current + aDkim.current + aSpf.current)
-  // }
-
-  // function handleADKIM(event) {
-  //   aDkim.current = event.target.value
-
-  //   setDmarcString(prefix + dPolicy.current + sPolicy.current + fOption.current + aDkim.current + aSpf.current)
-  // }
-
-  // function handleASPF(event) {
-  //   aSpf.current = event.target.value
-
-  //   setDmarcString(prefix + dPolicy.current + sPolicy.current + fOption.current + aDkim.current + aSpf.current)
-  // }
