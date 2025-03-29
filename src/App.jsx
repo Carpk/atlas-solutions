@@ -9,6 +9,7 @@ import Account from './components/Account'
 import Assets from './components/Assets'
 import HelpTickets from './components/HelpTickets'
 import DmarcReport from './components/DmarcReport'
+import DmarcCheck from './components/DmarcCheck'
 import Announcements from './components/Announcements'
 import Dashboard from './components/Dashboard'
 
@@ -24,6 +25,7 @@ function App() {
           <Route path="/security-training" element={<SecTraining />} />
           <Route path="/dmarc-builder" element={<DmarcBuilder />} />
           <Route path="/dmarc-reports" element={<DmarcReport />} />
+          <Route path="/dmarc-check" element={<DmarcCheck />} />
           <Route path="/assets" element={<Assets />} />
           <Route path="/account" element={<Account />} /> 
           <Route path="/help-tickets" element={<HelpTickets />} />

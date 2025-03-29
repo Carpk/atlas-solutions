@@ -44,7 +44,7 @@ function Home() {
         sx={{
           justifyContent: 'center',
           gap: { xs: 4, sm: 8 },
-          p: { xs: 2, sm: 4 },
+          // p: { xs: 2, sm: 4 },
           m: 'auto',
         }}
       >
@@ -92,7 +92,7 @@ function Home() {
               DMAR Builder Tool
             </Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              Free tool to build your DMARC record.
+              Free tool to build your DMARC record. Create an account to save your record.
             </Typography>
           </CardContent>
           <CardActions>
