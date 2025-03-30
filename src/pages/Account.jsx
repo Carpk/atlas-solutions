@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-import axios from './axios'
+import axios from '../axios'
 
 export default function Account() {
     const [account, setAccount] = useState(0)

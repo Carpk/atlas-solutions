@@ -11,7 +11,7 @@ import CardActions from '@mui/material/CardActions';
 
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-import SignInCard from './SignInCard';
+import SignInCard from '../components/SignInCard';
 
 
 function Home() {

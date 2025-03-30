@@ -2,16 +2,16 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Container from '@mui/material/Container';
 
 import Header from './components/Header';
-import Home from './components/Home';
-import SecTraining from './components/SecTraining'
-import DmarcBuilder from './components/DmarcBuilder'
-import Account from './components/Account'
-import Assets from './components/Assets'
-import HelpTickets from './components/HelpTickets'
-import DmarcReport from './components/DmarcReport'
-import DmarcCheck from './components/DmarcCheck'
-import Announcements from './components/Announcements'
-import Dashboard from './components/Dashboard'
+import Home from './pages/Home';
+import SecTraining from './pages/SecTraining'
+import DmarcBuilder from './pages/DmarcBuilder'
+import Account from './pages/Account'
+import Assets from './pages/Assets'
+import HelpTickets from './pages/HelpTickets'
+import DmarcReport from './pages/DmarcReport'
+import DmarcCheck from './pages/DmarcCheck'
+import Announcements from './pages/Announcements'
+import Dashboard from './pages/Dashboard'
 
 function App() {
 

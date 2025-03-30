@@ -27,7 +27,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 // import { useQuery } from '@tanstack/react-query';
-// import axios from './axios'
+// import axios from '../axios'
 
 import { List, ListItem, ListItemText, Stack } from '@mui/material';
 
@@ -90,6 +90,9 @@ export default function DmarcBuilder() {
       // 
     }
     fetchData()
+    setShowSaved(false)
+    setDmarcRecords([])
+
   }, [])
 
 

@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 // import { SparkLineChart } from '@mui/x-charts/SparkLineChart';
 // import { areaElementClasses } from '@mui/x-charts/LineChart';
 
-import axios from './axios'
+import axios from '../axios'
 
 
 

@@ -12,9 +12,9 @@ import CardActions from '@mui/material/CardActions';
 
 import { List, ListItem, ListItemText } from '@mui/material';
 
-import Intro from './intro';
-import Tactics from './tactics'
-import Safety from './safety'
+import Intro from '../components/intro';
+import Tactics from '../components/tactics'
+import Safety from '../components/safety'
 
 
   // on the rise, what they want, what to look for, common tactics

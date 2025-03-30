@@ -5,7 +5,7 @@ import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 
-import axios from './axios'
+import axios from '../axios'
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#fff',

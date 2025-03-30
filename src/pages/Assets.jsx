@@ -7,7 +7,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { DataGrid } from '@mui/x-data-grid';
 // import { GridRowsProp, GridColDef } from '@mui/x-data-grid';
-import axios from './axios'
+import axios from '../axios'
 
 
 
