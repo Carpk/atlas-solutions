@@ -62,6 +62,14 @@ export default function SignInCard() {
     });
 
     // get jwt from backend
+    async function fetchData() {
+      // const req = await axios.get("/api/login")
+      // // const records = req.data._embedded.dmarcRecords
+      // setDmarcRecords(req.data._embedded.dmarcRecords)
+      // console.log(req.data._embedded.dmarcRecords)
+    }
+    
+    fetchData()
 
   };
 

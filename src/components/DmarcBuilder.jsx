@@ -29,7 +29,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 // import { useQuery } from '@tanstack/react-query';
 // import axios from './axios'
 
-import { List, ListItem, ListItemText } from '@mui/material';
+import { List, ListItem, ListItemText, Stack } from '@mui/material';
 
 
 
@@ -37,6 +37,7 @@ export default function DmarcBuilder() {
   const prefix = "v=DMARC1;"
   const [dmarcString, setDmarcString] = useState(prefix + " p=none;")
   const [dmarcRecords, setDmarcRecords] = useState([])
+  const [showSaved, setShowSaved] = useState(false)
   const testRef = useRef("");
 
   // const handleDPolicy = radio => event => setDPolicy(radio);
@@ -86,9 +87,42 @@ export default function DmarcBuilder() {
       // // const records = req.data._embedded.dmarcRecords
       // setDmarcRecords(req.data._embedded.dmarcRecords)
       // console.log(req.data._embedded.dmarcRecords)
+      // 
     }
     fetchData()
   }, [])
+
+
+  function savedRecords() {
+    return (
+      <Stack>
+        <Divider>Saved Records</Divider>
+        <Card>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              Saved Records
+            </Typography>
+            <List>
+              { dmarcRecords.map((record, index) => (
+                <ListItem key={ index }>
+                  <ListItemText primary={
+                    `v=DMARC1; 
+                    p=${record.policy};
+                    ${ record.spolicy ? "spolicy:" + record.spolicy : "" }
+                    rua=mailto:${record.rua}
+                    ${ record.ruf ? "ruf:" + record.ruf : "" }
+                    ${ record.pct ? "pct:" + record.pct : "" }`
+                    } />
+                  <EditIcon />
+                  <DeleteIcon />
+                </ListItem>
+              ))}
+            </List>
+          </CardContent>
+        </Card>
+      </Stack>
+    )
+  }
 
   return (
     <Container sx={{ py: { xs: 8, sm: 16 } }}>
@@ -130,9 +164,6 @@ export default function DmarcBuilder() {
                 </RadioGroup>
               </Grid>
               <Grid size={2}>
-
-
-
                 <FormLabel id="demo-radio-buttons-group-label">Policy Percentage</FormLabel>
                 <FormGroup>
                   <FormControlLabel  
@@ -149,9 +180,6 @@ export default function DmarcBuilder() {
                     onChange={ handleChange } 
                   />  
                 </FormGroup>
-
-
-
               </Grid>
               <Grid size={2}>
                 <FormLabel id="demo-radio-buttons-group-label">Forensic Options</FormLabel>
@@ -194,9 +222,6 @@ export default function DmarcBuilder() {
                   <FormControlLabel value=" aspf=r;" control={<Radio />} label="Relaxed" />
                 </RadioGroup>
               </Grid>
-
-
-
               <Grid size={6}>
                 <FormControl fullWidth sx={{ m: 0 }}>
                   <FormLabel id="rua-label">RUA</FormLabel>
@@ -223,9 +248,6 @@ export default function DmarcBuilder() {
                   />
                 </FormControl>
               </Grid>
-
-
-
               <Grid size={12}>
                 <Box sx={{ width: 1200, maxWidth: '100%' }}>
                   <FormLabel id="dmarc-label">DMARC Record</FormLabel>
@@ -241,39 +263,13 @@ export default function DmarcBuilder() {
                   />
                 </Box>
               </Grid>
-
               <Button variant="contained" sx={{ marginLeft: "auto" }} disabled>Save</Button>
-
             </Grid>
           </CardActions>
         </CardContent>
       </Card>
 
-      <Divider>Saved Records</Divider>
-
-      <Card>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Saved Records
-          </Typography>
-          <List>
-            { dmarcRecords.map((record, index) => (
-              <ListItem key={ index }>
-                <ListItemText primary={
-                  `v=DMARC1; 
-                   p=${record.policy};
-                   ${ record.spolicy ? "spolicy:" + record.spolicy : "" }
-                   rua=mailto:${record.rua}
-                   ${ record.ruf ? "ruf:" + record.ruf : "" }
-                   ${ record.pct ? "pct:" + record.pct : "" }`
-                  } />
-                <EditIcon />
-                <DeleteIcon />
-              </ListItem>
-            ))}
-          </List>
-        </CardContent>
-      </Card>
+      { showSaved && savedRecords() }
     </Container>
   );
 }

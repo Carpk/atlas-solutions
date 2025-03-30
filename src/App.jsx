@@ -4,7 +4,7 @@ import Container from '@mui/material/Container';
 import Header from './components/Header';
 import Home from './components/Home';
 import SecTraining from './components/SecTraining'
-import DmarcBuilder from './components/Dmarc'
+import DmarcBuilder from './components/DmarcBuilder'
 import Account from './components/Account'
 import Assets from './components/Assets'
 import HelpTickets from './components/HelpTickets'

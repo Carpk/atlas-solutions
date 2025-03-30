@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 
 // import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+
+import Typography from '@mui/material/Typography';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -23,13 +25,29 @@ import axios from './axios'
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#fff',
   padding: theme.spacing(1),
-  textAlign: 'center',
+  // textAlign: 'center',
   color: theme.palette.text.secondary,
 }));
 
+let descriptions = {
+  v: "protocol version",
+  p: "domain policy",
+  sp: "subdomain policy",
+  pct: "percentage",
+  rua: "Reporting URI for Aggregate data",
+  ruf: "Reporting URI for Forensic data",
+  fo: "Forensic Options",
+  aspf: "alignment mode for SPF",
+  adkim: "alignment mode for DKIM",
+  rf: "Report Format",
+  ri: "Report Interval"
+}
+
+
 export default function DmarcCheck() {
-    const [dmarcCheck, setDmarcCheck] = useState("blank")
+    const [dmarcCheck, setDmarcCheck] = useState("")
     const [domainName, setDomainName] = useState("bridgewaterstudio.net")
+    const [showResults, setShowResults] = useState(false)
    
     // useEffect(() => {
     //   async function fetchData() {
@@ -39,19 +57,7 @@ export default function DmarcCheck() {
     //   fetchData()
     // }, [])
 
-    let descriptions = {
-      v: "protocol version",
-      p: "domain policy",
-      sp: "subdomain policy",
-      pct: "percentage",
-      rua: "Reporting URI for Aggregate data",
-      ruf: "Reporting URI for Forensic data",
-      fo: "Forensic Options",
-      aspf: "alignment mode for SPF",
-      adkim: "alignment mode for DKIM",
-      rf: "Report Format",
-      ri: "Report Interval"
-    }
+
     
 
     function handleCheck() {
@@ -59,6 +65,7 @@ export default function DmarcCheck() {
       async function fetchData() {
         const req = await axios.get(`https://dns.google/resolve?name=_dmarc.${domainName}&type=TXT`)
           setDmarcCheck(req.data.Answer[0].data)
+          setShowResults(true)
         }
         fetchData()
     }
@@ -71,10 +78,59 @@ export default function DmarcCheck() {
       // return ""
       return <TableCell align="right">{ descriptions[val[0].trim()] }</TableCell>
     }
+
+
+    function tableResults() {
+      return (
+        <Stack>
+          <Item >
+            <Typography variant="h5" >
+              Your DMARC record:
+            </Typography>
+            { dmarcCheck }
+          </Item>
+
+          <Item>
+            {/* { dmarcCheck.split(";").map((item, index) => {
+                return <div key={index}>{item}</div>;
+            })} */}
+
+            <TableContainer component={Paper}>
+              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Component</TableCell>
+                    <TableCell align="right">Value</TableCell>
+                    <TableCell align="right">Valid</TableCell>
+                    <TableCell align="right">Options</TableCell>
+                    <TableCell align="right">Description</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  { dmarcCheck.split(";").map((item) => (
+                    <TableRow
+                      key={item}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {item}
+                      </TableCell>
+                      <TableCell align="right">{ 3 }</TableCell>
+                      <TableCell align="right">{ 3 }</TableCell>
+                      <TableCell align="right">{ 3 }</TableCell>
+                      { getDescription(item) }
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Item>
+        </Stack>
+      )
+    }
   
     return (
       <Stack spacing={2} sx={{ display: 'flex', mt: 20 }}>
-        
         <TextField 
           id="domain-field" 
           label="domain" 
@@ -83,45 +139,7 @@ export default function DmarcCheck() {
         />
         <Button variant="contained" onClick={handleCheck}>Check</Button>
 
-        <Item >
-          { dmarcCheck }
-        </Item>
-
-        <Item>
-          {/* { dmarcCheck.split(";").map((item, index) => {
-              return <div key={index}>{item}</div>;
-          })} */}
-
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Component</TableCell>
-                  <TableCell align="right">Value</TableCell>
-                  <TableCell align="right">Valid</TableCell>
-                  <TableCell align="right">Options</TableCell>
-                  <TableCell align="right">Description</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                { dmarcCheck.split(";").map((item) => (
-                  <TableRow
-                    key={item}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {item}
-                    </TableCell>
-                    <TableCell align="right">{ 3 }</TableCell>
-                    <TableCell align="right">{ 3 }</TableCell>
-                    <TableCell align="right">{ 3 }</TableCell>
-                     { getDescription(item) }
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Item>
+        { showResults && tableResults() }
       </Stack>
     )
 }
