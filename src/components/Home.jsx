@@ -25,12 +25,17 @@ function Home() {
     navigate('/dmarc-builder');
   }
 
+  function handleDmarcChecker() {
+    navigate('/dmarc-check')
+  }
+
 
   return (
     <Stack
       direction={{ xs: 'column-reverse', md: 'row' }}
       sx={{
         justifyContent: 'center',
+        // alignItems: "flex-start",
         height: 'calc((1 - var(--template-frame-height, 0)) * 100%)',
         marginTop: 'max(150px - var(--template-frame-height, 0px), 0px)',
         minHeight: '100%',
@@ -43,7 +48,8 @@ function Home() {
         // direction={{ xs: 'column-reverse', md: 'row' }}
         sx={{
           justifyContent: 'center',
-          gap: { xs: 4, sm: 8 },
+          gap: { xs: 2, sm: 4 },
+          
           // p: { xs: 2, sm: 4 },
           m: 'auto',
         }}
@@ -123,8 +129,45 @@ function Home() {
             </Box>
           </CardActions>
         </Card>
-        </Stack>
-        <SignInCard />
+        <Card sx={{ alignItems: 'center', maxWidth: 425 }} >
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              DMAR Checker
+            </Typography>
+            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+              Verify your DMARC record.
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Box
+              sx={[
+                {
+                  display: 'flex',
+                  flexDirection: { xs: 'column-reverse', sm: 'row' },
+                  alignItems: 'end',
+                  flexGrow: 1,
+                  gap: 1,
+                  pb: { xs: 12, sm: 0 },
+                  mt: { xs: 2, sm: 0 },
+                  mb: '12px',
+                  justifyContent: 'flex-end' 
+                },
+              ]}
+              >
+              <Button 
+                variant="contained"
+                onClick={ handleDmarcChecker } 
+                size="small"  
+                color="primary"
+                sx={{ width: { xs: '100%', sm: 'fit-content' }, mr: 3 }}
+              >
+                Start
+              </Button>
+            </Box>
+          </CardActions>
+        </Card>
+      </Stack>
+      <SignInCard />
       
     </Stack>
   );
