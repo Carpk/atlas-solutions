@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import MuiCard from '@mui/material/Card';
 import Checkbox from '@mui/material/Checkbox';
-import Divider from '@mui/material/Divider';
+// import Divider from '@mui/material/Divider';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -54,38 +54,43 @@ export default function SignInCard() {
       event.preventDefault();
       return;
     }
+
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get('email'),
       password: data.get('password'),
     });
+
+    // get jwt from backend
+
   };
 
   const validateInputs = () => {
-    const email = document.getElementById('email');
-    const password = document.getElementById('password');
+    // const email = document.getElementById('email');
+    // const password = document.getElementById('password');
 
-    let isValid = true;
+    // let isValid = true;
 
-    if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
-      setEmailError(true);
-      setEmailErrorMessage('Please enter a valid email address.');
-      isValid = false;
-    } else {
-      setEmailError(false);
-      setEmailErrorMessage('');
-    }
+    // if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
+    //   setEmailError(true);
+    //   setEmailErrorMessage('Please enter a valid email address.');
+    //   isValid = false;
+    // } else {
+    //   setEmailError(false);
+    //   setEmailErrorMessage('');
+    // }
 
-    if (!password.value || password.value.length < 6) {
-      setPasswordError(true);
-      setPasswordErrorMessage('Password must be at least 6 characters long.');
-      isValid = false;
-    } else {
-      setPasswordError(false);
-      setPasswordErrorMessage('');
-    }
+    // if (!password.value || password.value.length < 6) {
+    //   setPasswordError(true);
+    //   setPasswordErrorMessage('Password must be at least 6 characters long.');
+    //   isValid = false;
+    // } else {
+    //   setPasswordError(false);
+    //   setPasswordErrorMessage('');
+    // }
 
-    return isValid;
+    // return isValid;
+    return true;
   };
 
   return (

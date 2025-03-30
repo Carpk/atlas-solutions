@@ -95,7 +95,7 @@ function Home() {
         <Card sx={{ alignItems: 'center', maxWidth: 425 }} >
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              DMAR Builder Tool
+              DMARC Builder Tool
             </Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
               Free tool to build your DMARC record. Create an account to save your record.
@@ -132,7 +132,7 @@ function Home() {
         <Card sx={{ alignItems: 'center', maxWidth: 425 }} >
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              DMAR Checker
+              DMARC Checker
             </Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
               Verify your DMARC record.

@@ -55,6 +55,7 @@ export default function DmarcCheck() {
     
 
     function handleCheck() {
+      // const domainName = document.getElementById('domain-name');
       async function fetchData() {
         const req = await axios.get(`https://dns.google/resolve?name=_dmarc.${domainName}&type=TXT`)
           setDmarcCheck(req.data.Answer[0].data)

@@ -42,20 +42,22 @@ export default function DmarcBuilder() {
   // const handleDPolicy = radio => event => setDPolicy(radio);
 
   function getValue(name) {
-    const val = document.querySelector('input[name='+name+']:checked')
-    return val == null ? "" : val.value
+    const val = document.querySelector('input[name=' + name + ']:checked')
+    return val == null ? "" : val.value // maybe return 'omit'
   }
 
   function getPct(name) {
-    const chk = document.querySelector('input[name='+name+']:checked')
+    const chk = document.querySelector('input[name=' + name + ']:checked')
+    // const value = document.getElementById("policy-pct");
     const val = document.querySelector('input[name=policy-pct]')
 
     return (chk != null && val.value != "") ? " pct=" + val.value + ";" : ""
   }
 
   function getEmailData() {
+    // const value = document.getElementById("rua-input");
     const val = document.querySelector('input[name=rua-input]')
-    //validate email
+    // validate email
     // console.log(val.value)
     return val.value == "" ? "" : " rua=mailto:" + val.value + ";"
   }
@@ -69,7 +71,6 @@ export default function DmarcBuilder() {
     const algSp = getValue('spf-alignment')
     const polPct = getPct('pct-active')
     const ruaEma = getEmailData()
-
 
     // rebuild DMARC string
     setDmarcString(prefix + domPo + subPo + polPct + forOp + algDk + algSp + ruaEma)
