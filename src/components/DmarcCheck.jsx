@@ -29,7 +29,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function DmarcCheck() {
     const [dmarcCheck, setDmarcCheck] = useState("blank")
-    const [domainName, setDomainName] = useState()
+    const [domainName, setDomainName] = useState("bridgewaterstudio.net")
    
     // useEffect(() => {
     //   async function fetchData() {
@@ -39,11 +39,24 @@ export default function DmarcCheck() {
     //   fetchData()
     // }, [])
 
+    let descriptions = {
+      v: "protocol version",
+      p: "domain policy",
+      sp: "subdomain policy",
+      pct: "percentage",
+      rua: "Reporting URI for Aggregate data",
+      ruf: "Reporting URI for Forensic data",
+      fo: "Forensic Options",
+      aspf: "alignment mode for SPF",
+      adkim: "alignment mode for DKIM",
+      rf: "Report Format",
+      ri: "Report Interval"
+    }
+    
+
     function handleCheck() {
-      const domain = "bridgewaterstudio.net"
-      console.log(domainName)
       async function fetchData() {
-        const req = await axios.get(`https://dns.google/resolve?name=_dmarc.${domain}&type=TXT`)
+        const req = await axios.get(`https://dns.google/resolve?name=_dmarc.${domainName}&type=TXT`)
           setDmarcCheck(req.data.Answer[0].data)
         }
         fetchData()
@@ -51,10 +64,11 @@ export default function DmarcCheck() {
 
     function getDescription( comp ) {
       const val = comp.split("=")
-      
+      console.log(val[0].trim())
+      // return descriptions[val[0]]
      
-      return ""
-      // return <TableCell align="right"> val </TableCell>
+      // return ""
+      return <TableCell align="right">{ descriptions[val[0].trim()] }</TableCell>
     }
   
     return (
@@ -73,9 +87,9 @@ export default function DmarcCheck() {
         </Item>
 
         <Item>
-          { dmarcCheck.split(";").map((item, index) => {
+          {/* { dmarcCheck.split(";").map((item, index) => {
               return <div key={index}>{item}</div>;
-          })}
+          })} */}
 
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -100,7 +114,7 @@ export default function DmarcCheck() {
                     <TableCell align="right">{ 3 }</TableCell>
                     <TableCell align="right">{ 3 }</TableCell>
                     <TableCell align="right">{ 3 }</TableCell>
-                    <TableCell align="right">{ getDescription(item) }</TableCell>
+                     { getDescription(item) }
                   </TableRow>
                 ))}
               </TableBody>

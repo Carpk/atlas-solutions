@@ -4,10 +4,10 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 
-import atlas from '../assets/atlas.svg'
+import atlas from '../assets/techatlas.png'
 
 const logoStyle = {
-  width: '50px',
+  // width: '50px',
   height: '50px',
   margin: '0 0px',
   opacity: 1.0,
